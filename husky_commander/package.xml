@@ -4,7 +4,7 @@
   <name>husky_commander</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="maritaganta@gmail.com">marita</maintainer>
+  <maintainer email="ainhoaarnaiz@gmail.com">ainhoa</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
