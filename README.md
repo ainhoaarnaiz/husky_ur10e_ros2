@@ -27,4 +27,5 @@ Launch hand teleop:
 ```
 ros2 launch husky_commander husky_hand_teleop_sim.launch.py
 ```
+![Example](./media/example.gif)
 
