@@ -45,7 +45,14 @@ class HandTeleopNode(Node):
     
     def get_hand_move(self, hand_landmarks):
         landmarks = hand_landmarks.landmark
-        
+        # Check for closed fist: all fingertips are below their respective PIP joints
+        is_fist_closed = all(
+            landmarks[tip_id].y > landmarks[tip_id - 2].y
+            for tip_id in [8, 12, 16, 20]  # Fingertip indices
+        )
+        if is_fist_closed:
+            return "backward"
+    
         if all(landmarks[i].y > landmarks[i + 3].y for i in range(5, 20, 4)):
             return "forward"
         elif landmarks[5].y > landmarks[9].y and landmarks[9].y > landmarks[13].y and landmarks[13].y > landmarks[17].y:
@@ -99,6 +106,10 @@ class HandTeleopNode(Node):
         twist = Twist()
         if hand_move == "forward":
             twist.linear.x = 0.1
+
+        elif hand_move == "backward":
+            twist.linear.x = -0.1  # Negative for backward movement
+
         elif hand_move == "turn left":
             twist.angular.z = 0.1
         elif hand_move == "turn right":
