@@ -15,8 +15,6 @@ from pymoveit2.robots import ur
 class HandTeleopNode(Node):
     def __init__(self):
         super().__init__('hand_teleop_node')
-        # add '/a200_0000/cmd_vel' to the publiser if you want to connect to the robot
-        # add 'cmd_vel' to the publisher if you want to connect to the simulator
         self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
         self.timer = self.create_timer(0.1, self.update)
         self.vid = cv.VideoCapture(0)
@@ -45,7 +43,6 @@ class HandTeleopNode(Node):
     
     def get_hand_move(self, hand_landmarks):
         landmarks = hand_landmarks.landmark
-
         
         if all(landmarks[i].y > landmarks[i + 3].y for i in range(5, 20, 4)):
             return "forward"
@@ -100,6 +97,10 @@ class HandTeleopNode(Node):
         twist = Twist()
         if hand_move == "forward":
             twist.linear.x = 0.1
+
+        elif hand_move == "backward":
+            twist.linear.x = -0.1  # Negative for backward movement
+
         elif hand_move == "turn left":
             twist.angular.z = 0.1
         elif hand_move == "turn right":
