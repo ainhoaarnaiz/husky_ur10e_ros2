@@ -15,7 +15,9 @@ from pymoveit2.robots import ur
 class HandTeleopNode(Node):
     def __init__(self):
         super().__init__('hand_teleop_node')
-        self.publisher = self.create_publisher(Twist, 'cmd_vel', 10)
+        # add '/a200_0000/cmd_vel' to the publiser if you want to connect to the robot
+        # add 'cmd_vel' to the publisher if you want to connect to the simulator
+        self.publisher = self.create_publisher(Twist, '/a200_0000/cmd_vel', 10)
         self.timer = self.create_timer(0.1, self.update)
         self.vid = cv.VideoCapture(0)
         self.mp_hands = mp.solutions.hands.Hands(model_complexity=0,
