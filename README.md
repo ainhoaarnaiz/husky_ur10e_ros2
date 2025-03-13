@@ -29,3 +29,17 @@ ros2 launch husky_commander husky_hand_teleop_sim.launch.py
 ```
 ![Example](./media/example.gif)
 
+
+
+Launch:
+```
+ros2 launch ur_commander iaac_ur10e.launch.py sim:=true
+```
+
+```
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 1 ur_base_link world
+```
+
+```
+ros2 launch clearpath_viz  view_model.launch.py setup_path:=/dev_ws/src/husky_commander/config/husky_basic/
+```
